@@ -66,8 +66,7 @@ public abstract class Entity {
   public void setParent(Entity p) throws MustHaveParent, ParentIsNotContainerException {
     if(p == null && mustBeContained()) {
       throw new MustHaveParent(getName());
-    } 
-    if(!p.isContainer()) {
+    } else if(!p.isContainer()) {
       throw new ParentIsNotContainerException(p.getName());
     }
     p.getChildren().put(getName(), this);

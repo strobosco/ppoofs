@@ -17,7 +17,7 @@ import exceptions.ParentIsNotContainerException;
 
 public class TextFile extends Entity {
 
-  private String content = " ";
+  private String content;
 
   public TextFile(String name, Entity parent, String c) throws AlreadyExistsException, FileAlreadyExists, MustHaveParent, ParentIsNotContainerException {
     super(name, "TEXT_FILE", parent);
@@ -25,7 +25,7 @@ public class TextFile extends Entity {
   }
 
   public void setContent(String c) {
-    this.content = c;
+    content = c;
   }
 
   public String getContent() {

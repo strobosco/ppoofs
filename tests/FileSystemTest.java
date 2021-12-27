@@ -1,10 +1,10 @@
 package tests;
 
 import org.junit.Test;
-import org.w3c.dom.Text;
 
 import entities.Folder;
 import entities.TextFile;
+import entities.ZipFile;
 import exceptions.AlreadyExistsException;
 import exceptions.EntityNotFoundException;
 import exceptions.MustHaveParent;
@@ -139,34 +139,5 @@ public class FileSystemTest {
     Print.printDirectory(fs.getCDrive());
     System.out.print("\n\n");
 
-    // 4. Adding text and zip files
-    TextFile text1 = new TextFile("text1.txt", folder2, "hello");
-    try {
-      System.out.print("Testing text file path: ");
-      assertEquals("c#e:test/", text1.getPath());
-    } catch(AssertionError e) {
-      System.out.println(e);
-      System.exit(1);
-    } catch(Exception e) {
-      System.out.println(e);
-      System.exit(1);
-    }
-    System.out.print("successful\n\n");
-
-    // TextFile text2 = new TextFile("text2.txt", drive1);
-    // try {
-    //   System.out.print("Testing text file path: ");
-    //   assertEquals("c#e:test/", text2.getPath());
-    // } catch(AssertionError e) {
-    //   System.out.println(e);
-    //   System.exit(1);
-    // }
-    // System.out.print("successful\n\n");
-
-    System.out.print("Printing tree: \n");
-    Print.printDirectory(fs.getCDrive());
-    System.out.print("\n\n");
-
-  }
-  
+  }  
 }
