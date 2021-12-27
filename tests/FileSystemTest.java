@@ -3,8 +3,11 @@ package tests;
 import org.junit.Test;
 
 import entities.Folder;
+import exceptions.AlreadyExistsException;
+import exceptions.MustHaveParent;
 import entities.Drive;
 import main.FileSystem;
+import utils.Print;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class FileSystemTest {
 
   @Test
-  public void testFileSystem() {
+  public void testFileSystem() throws AlreadyExistsException, MustHaveParent {
 
     // Create filesystem
     FileSystem fs = new FileSystem();
@@ -85,7 +88,7 @@ public class FileSystemTest {
 
     // Printing current state of fs
     System.out.print("Printing tree: \n\n");
-    fs.printDirectory(fs.getCDrive());
+    Print.printDirectory(fs.getCDrive());
     System.out.print("\n\n");
 
     // Delete test folder in e: drive
@@ -94,7 +97,7 @@ public class FileSystemTest {
 
     // Reprint tree
     System.out.print("Printing tree: \n\n");
-    fs.printDirectory(fs.getCDrive());
+    Print.printDirectory(fs.getCDrive());
     System.out.print("\n\n");
 
     // Move test in d: to e: drive
@@ -103,7 +106,7 @@ public class FileSystemTest {
 
     // Reprint tree
     System.out.print("Printing tree: \n\n");
-    fs.printDirectory(fs.getCDrive());
+    Print.printDirectory(fs.getCDrive());
     System.out.print("\n\n");
 
   }

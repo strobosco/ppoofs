@@ -2,6 +2,9 @@ package entities;
 
 import java.util.HashMap;
 
+import exceptions.AlreadyExistsException;
+import exceptions.MustHaveParent;
+
 /**
    * The entity class is the top-level class in this OOP implementation of a
    * filesystem. It possesses 6 attributes
@@ -24,7 +27,7 @@ public abstract class Entity {
   private Entity parent;
   private HashMap<String, Entity> children = new HashMap<String, Entity>();
 
-  public Entity(String name, String type, Entity parent) {
+  public Entity(String name, String type, Entity parent) throws AlreadyExistsException, MustHaveParent {
     setName(name);
     setType(type);
     if(parent != null) {
@@ -59,7 +62,10 @@ public abstract class Entity {
     return parent;
   }
 
-  public void setParent(Entity p) {
+  public void setParent(Entity p) throws MustHaveParent {
+    if(p == null && mustBeContained()) {
+      new MustHaveParent(getName());
+    }
     p.getChildren().put(getName(), this);
     this.parent = p;
   }

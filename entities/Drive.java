@@ -1,5 +1,9 @@
 package entities;
 
+import exceptions.AlreadyExistsException;
+import exceptions.FileAlreadyExists;
+import exceptions.MustHaveParent;
+
 /**
  * The Drive class contains the code necessary to make an Entity
  * a drive. It's {@code mustBeContained} method is overriden to
@@ -11,7 +15,7 @@ package entities;
  */
 
 public class Drive extends Entity {
-  public Drive(String name, Entity parent) {
+  public Drive(String name, Entity parent) throws AlreadyExistsException, FileAlreadyExists, MustHaveParent {
     super(name, "DRIVE", parent);
   }
 

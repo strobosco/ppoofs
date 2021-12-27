@@ -5,15 +5,23 @@ import entities.Entity;
 import entities.Folder;
 import entities.TextFile;
 import entities.ZipFile;
+import exceptions.AlreadyExistsException;
+import exceptions.DriveAlreadyExists;
+import exceptions.FileAlreadyExists;
+import exceptions.FolderAlreadyExistsException;
+import exceptions.MustHaveParent;
+import exceptions.UnsupportedFileTypeException;
 
+import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class FileSystem {
 
   private Drive cDrive;
 
-  public FileSystem() {
+  public FileSystem() throws AlreadyExistsException, MustHaveParent {
     cDrive = new Drive("c", null);
   }
 
@@ -21,25 +29,37 @@ public class FileSystem {
     return cDrive;
   }
 
-  public void create(String type, String name, String path) {
+  public void create(String type, String name, String path) throws AlreadyExistsException, FileAlreadyExists, UnsupportedFileTypeException, MustHaveParent {
     switch (type) {
       case "DRIVE":
+        if(cDrive.getChildren().containsKey(name)) {
+          throw new DriveAlreadyExists(name);
+        }
         new Drive(name, cDrive);  
         break;
       case "FOLDER":
-        ArrayList<String> folderParent = new ArrayList<String>(Arrays.asList(path.split("/|#|:")));
+      ArrayList<String> folderParent = new ArrayList<String>(Arrays.asList(path.split("/|#|:")));
+        if(findParent(cDrive, folderParent).getChildren().containsKey(name)) {
+          throw new FolderAlreadyExistsException(name);
+        }
         new Folder(name, findParent(cDrive, folderParent));
         break;
       case "TEXT_FILE":
         ArrayList<String> textParent = new ArrayList<String>(Arrays.asList(path.split("/|#|:")));
+        if(findParent(cDrive, textParent).getChildren().containsKey(name)) {
+          throw new FileAlreadyExists(name);
+        }
         new TextFile(name, findParent(cDrive, textParent));
         break;
       case "ZIP_FILE":
         ArrayList<String> zipParent = new ArrayList<String>(Arrays.asList(path.split("/|#|:")));
+        if(findParent(cDrive, zipParent).getChildren().containsKey(name)) {
+          throw new FileAlreadyExists(name);
+        }
         new ZipFile(name, findParent(cDrive, zipParent));
         break;
       default:
-        break;
+        throw new UnsupportedFileTypeException("Entity type not supported!");
     }
 
   }
@@ -50,7 +70,7 @@ public class FileSystem {
     child.getParent().deleteChild(name);
   }
 
-  public void move(String origin, String destination) {
+  public void move(String origin, String destination) throws MustHaveParent {
     ArrayList<String> split = new ArrayList<String>(Arrays.asList(origin.split("/|#|:")));
     Entity e = findParent(cDrive, split);
     ArrayList<String> newParentPath = new ArrayList<String>(Arrays.asList(destination.split("/|#|:")));
@@ -78,14 +98,5 @@ public class FileSystem {
       return child;
     }    
     return findParent(child, split);
-  }
-
-  public void printDirectory(Entity entity) {
-    System.out.println(entity.getPath());
-    if (entity.isContainer()) {
-      for (Entity c : entity.getChildren().values()) {
-          printDirectory(c);
-      }
-    }
   }
 }

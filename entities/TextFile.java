@@ -1,5 +1,9 @@
 package entities;
 
+import exceptions.AlreadyExistsException;
+import exceptions.FileAlreadyExists;
+import exceptions.MustHaveParent;
+
 /**
  * The TextFile class is the only class that possesses an extra
  * attribute.
@@ -14,7 +18,7 @@ public class TextFile extends Entity {
 
   private String content;
 
-  public TextFile(String name, Entity parent) {
+  public TextFile(String name, Entity parent) throws AlreadyExistsException, FileAlreadyExists, MustHaveParent {
     super(name, "TEXT_FILE", parent);
   }
 

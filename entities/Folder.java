@@ -1,7 +1,11 @@
 package entities;
 
+import exceptions.AlreadyExistsException;
+import exceptions.FolderAlreadyExistsException;
+import exceptions.MustHaveParent;
+
 public class Folder extends Entity {
-  public Folder(String name, Entity parent) {
+  public Folder(String name, Entity parent) throws AlreadyExistsException, FolderAlreadyExistsException, MustHaveParent {
     super(name, "FOLDER", parent);
   }
   

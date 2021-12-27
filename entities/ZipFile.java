@@ -1,5 +1,9 @@
 package entities;
 
+import exceptions.AlreadyExistsException;
+import exceptions.FileAlreadyExists;
+import exceptions.MustHaveParent;
+
 /**
  * The main difference between the ZipFile class and its
  * counterparts is the this classes size corresponds to a 
@@ -7,7 +11,7 @@ package entities;
  */
 
 public class ZipFile extends Entity {
-  public ZipFile(String name, Entity parent) {
+  public ZipFile(String name, Entity parent) throws AlreadyExistsException, FileAlreadyExists, MustHaveParent {
     super(name, "ZIP_FILE", parent);
   }
 
