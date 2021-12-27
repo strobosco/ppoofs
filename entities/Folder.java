@@ -3,9 +3,10 @@ package entities;
 import exceptions.AlreadyExistsException;
 import exceptions.FolderAlreadyExistsException;
 import exceptions.MustHaveParent;
+import exceptions.ParentIsNotContainerException;
 
 public class Folder extends Entity {
-  public Folder(String name, Entity parent) throws AlreadyExistsException, FolderAlreadyExistsException, MustHaveParent {
+  public Folder(String name, Entity parent) throws AlreadyExistsException, FolderAlreadyExistsException, MustHaveParent, ParentIsNotContainerException  {
     super(name, "FOLDER", parent);
   }
   

@@ -5,6 +5,7 @@ import org.junit.Test;
 import entities.Folder;
 import exceptions.AlreadyExistsException;
 import exceptions.MustHaveParent;
+import exceptions.ParentIsNotContainerException;
 import entities.Drive;
 
 import static org.junit.Assert.assertEquals;
@@ -12,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class FolderTest {
 
   @Test
-  public void testFolder() throws AlreadyExistsException, MustHaveParent {
+  public void testFolder() throws AlreadyExistsException, MustHaveParent, ParentIsNotContainerException {
     Drive drive1 = new Drive("c", null);
     try {
       assertEquals("c#", drive1.getPath());

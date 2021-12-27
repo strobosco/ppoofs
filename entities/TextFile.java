@@ -3,6 +3,7 @@ package entities;
 import exceptions.AlreadyExistsException;
 import exceptions.FileAlreadyExists;
 import exceptions.MustHaveParent;
+import exceptions.ParentIsNotContainerException;
 
 /**
  * The TextFile class is the only class that possesses an extra
@@ -16,10 +17,11 @@ import exceptions.MustHaveParent;
 
 public class TextFile extends Entity {
 
-  private String content;
+  private String content = " ";
 
-  public TextFile(String name, Entity parent) throws AlreadyExistsException, FileAlreadyExists, MustHaveParent {
+  public TextFile(String name, Entity parent, String c) throws AlreadyExistsException, FileAlreadyExists, MustHaveParent, ParentIsNotContainerException {
     super(name, "TEXT_FILE", parent);
+    setContent(c);
   }
 
   public void setContent(String c) {

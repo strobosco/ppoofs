@@ -3,6 +3,7 @@ package entities;
 import exceptions.AlreadyExistsException;
 import exceptions.FileAlreadyExists;
 import exceptions.MustHaveParent;
+import exceptions.ParentIsNotContainerException;
 
 /**
  * The Drive class contains the code necessary to make an Entity
@@ -15,7 +16,7 @@ import exceptions.MustHaveParent;
  */
 
 public class Drive extends Entity {
-  public Drive(String name, Entity parent) throws AlreadyExistsException, FileAlreadyExists, MustHaveParent {
+  public Drive(String name, Entity parent) throws AlreadyExistsException, FileAlreadyExists, MustHaveParent, ParentIsNotContainerException {
     super(name, "DRIVE", parent);
   }
 

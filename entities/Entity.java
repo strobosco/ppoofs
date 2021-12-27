@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import exceptions.AlreadyExistsException;
 import exceptions.MustHaveParent;
+import exceptions.ParentIsNotContainerException;
 
 /**
    * The entity class is the top-level class in this OOP implementation of a
@@ -27,7 +28,7 @@ public abstract class Entity {
   private Entity parent;
   private HashMap<String, Entity> children = new HashMap<String, Entity>();
 
-  public Entity(String name, String type, Entity parent) throws AlreadyExistsException, MustHaveParent {
+  public Entity(String name, String type, Entity parent) throws AlreadyExistsException, MustHaveParent, ParentIsNotContainerException {
     setName(name);
     setType(type);
     if(parent != null) {
@@ -62,9 +63,12 @@ public abstract class Entity {
     return parent;
   }
 
-  public void setParent(Entity p) throws MustHaveParent {
+  public void setParent(Entity p) throws MustHaveParent, ParentIsNotContainerException {
     if(p == null && mustBeContained()) {
-      new MustHaveParent(getName());
+      throw new MustHaveParent(getName());
+    } 
+    if(!p.isContainer()) {
+      throw new ParentIsNotContainerException(p.getName());
     }
     p.getChildren().put(getName(), this);
     this.parent = p;

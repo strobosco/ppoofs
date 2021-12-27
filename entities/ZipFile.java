@@ -3,6 +3,7 @@ package entities;
 import exceptions.AlreadyExistsException;
 import exceptions.FileAlreadyExists;
 import exceptions.MustHaveParent;
+import exceptions.ParentIsNotContainerException;
 
 /**
  * The main difference between the ZipFile class and its
@@ -11,7 +12,7 @@ import exceptions.MustHaveParent;
  */
 
 public class ZipFile extends Entity {
-  public ZipFile(String name, Entity parent) throws AlreadyExistsException, FileAlreadyExists, MustHaveParent {
+  public ZipFile(String name, Entity parent) throws AlreadyExistsException, FileAlreadyExists, MustHaveParent, ParentIsNotContainerException {
     super(name, "ZIP_FILE", parent);
   }
 
