@@ -14,10 +14,8 @@ import exceptions.MustHaveParent;
 import exceptions.ParentIsNotContainerException;
 import exceptions.UnsupportedFileTypeException;
 
-import java.nio.file.FileAlreadyExistsException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class FileSystem {
 
